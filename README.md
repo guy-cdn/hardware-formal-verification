@@ -1,1 +1,1 @@
-# hardware-formal-verification
+# Hardware Formal Verification Course
