@@ -2106,10 +2106,10 @@ module picorv32 #(
 		last_mem_nowait <= {last_mem_nowait, mem_ready || !mem_valid};
 
 	// stall the memory interface for max 4 cycles
-	restrict property (|last_mem_nowait || mem_ready || !mem_valid);
+	// restrict property (|last_mem_nowait || mem_ready || !mem_valid);
 
 	// resetn low in first cycle, after that resetn high
-	restrict property (resetn != $initstate);
+	// restrict property (resetn != $initstate);
 
 	// this just makes it much easier to read traces. uncomment as needed.
 	// assume property (mem_valid || !mem_ready);
