@@ -1,4 +1,10 @@
-analyze -sv ../picorv32/picorv32.v +define+FORMAL                                                                                          
-elaborate -top picorv32                                                                                                        
-clock clk                                                                                                                      
-reset ~resetn                                                                                                                  
+###########################################
+# Setup
+###########################################
+analyze -sv09 -f ibex_core.f \
+        -incdir ../vendor/lowrisc_ip/ip/prim/rtl/ \
+        -incdir ../vendor/lowrisc_ip/dv/sv/dv_utils/ \
+        +define+FORMAL +define+RISCV_FORMAL +define+RVFI
+elaborate -top ibex_core
+clock clk_i
+reset ~rst_ni
