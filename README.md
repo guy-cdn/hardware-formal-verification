@@ -8,3 +8,4 @@ git clone https://github.com/guy-cdn/hardware-formal-verification.git
 
 - ibex: a clone of https://github.com/lowRISC/ibex.
 - jasper/ibex: setup files for the ibex design.
+- jasper/pac-man: pac-man module and setup file.
