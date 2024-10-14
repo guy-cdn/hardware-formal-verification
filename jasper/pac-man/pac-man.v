@@ -1,7 +1,7 @@
 // A module describing a PacMan game
 module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     input  logic clk,                   // Clock signal
-    input  logic reset,                 // Reset signal
+    input  logic rst,                   // Reset signal
     input  logic [1:0] move,            // Move signal: 00=up, 01=down, 10=left, 11=right
     output logic [WIDTH-1:0] pacman_x,  // Pac-Man X position
     output logic [HEIGHT-1:0] pacman_y, // Pac-Man Y position
@@ -21,8 +21,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     logic [HEIGHT-1:0] ghost_y_reg, ghost_y_next;
 
     // Wall and candy initialization logic
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
             // Initialize walls: Surround the grid with walls and add some internal walls.
             for (integer i = 0; i < WIDTH; i = i + 1) begin
                 for (integer j = 0; j < HEIGHT; j = j + 1) begin
@@ -63,8 +63,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     end
 
     // Pac-Man movement logic
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
             // Start Pac-Man at (1,1)
             pacman_x_reg <= 1;
             pacman_y_reg <= 1;
@@ -75,8 +75,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     end
 
     // Catch logic
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
             catch <= 0;
         end else begin
             catch <= catch || (ghost_x_reg == pacman_x_reg && ghost_y_reg == pacman_y_reg);
@@ -85,8 +85,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
 
 
     // Ghost movement logic
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
             // Start Ghost at (WIDTH-2, HEIGHT-2)
             ghost_x_reg <= WIDTH-2;
             ghost_y_reg <= HEIGHT-2;
