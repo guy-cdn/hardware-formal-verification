@@ -1,13 +1,12 @@
 // A module describing a PacMan game
-module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
+module pacman #(parameter WIDTH = 6, HEIGHT = 6) (
     input  logic clk,                   // Clock signal
-    input  logic rst,                 // Reset signal
-    input  logic [1:0] move,            // Move signal: 00=up, 01=down, 10=left, 11=right
+    input  logic rst,                   // Reset signal
+    input  logic [1:0] pacman_move,     // Move signal: 00=up, 01=down, 10=left, 11=right
     output logic [WIDTH-1:0] pacman_x,  // Pac-Man X position
     output logic [HEIGHT-1:0] pacman_y, // Pac-Man Y position
     output logic [WIDTH-1:0] ghost_x,   // Ghost X position
     output logic [HEIGHT-1:0] ghost_y,  // Ghost Y position
-    output logic [WIDTH-1:0][HEIGHT-1:0] walls,  // Wall positions (1 = wall, 0 = free)
     output logic [WIDTH-1:0][HEIGHT-1:0] candies, // Candy positions (1 = candy, 0 = empty)
     output logic catch                  // Indicator for the event that the ghost catches Pac-Man
 );
@@ -29,36 +28,13 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     /////////////////////////////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            // Initialize walls: Surround the grid with walls and add some internal ones
+            // Initialize candies (place candies at "random" locations)
             for (integer i = 0; i < WIDTH; i = i + 1) begin
                 for (integer j = 0; j < HEIGHT; j = j + 1) begin
-                    walls[i][j] <= 0;
-                end
-            end
-            for (integer i = 0; i < WIDTH; i = i + 1) begin
-                walls[i][0] <= 1;         // Top row
-                walls[i][HEIGHT-1] <= 1;  // Bottom row
-            end
-            for (integer i = 0; i < HEIGHT; i = i + 1) begin
-                walls[0][i] <= 1;         // Left column
-                walls[WIDTH-1][i] <= 1;   // Right column
-            end
-
-            // Internal walls.  Assumes HEIGHT >= 6, WIDTH >= 7. A compilation
-            // error will occur if these conditions aren't met.
-            walls[2][2] <= 1;
-            walls[3][3] <= 1;
-            walls[4][4] <= 1;
-            walls[5][5] <= 1;
-            walls[5][6] <= 1;
-
-            // Initialize candies (place candies at random locations)
-            for (integer i = 0; i < WIDTH; i = i + 1) begin
-                for (integer j = 0; j < HEIGHT; j = j + 1) begin
-                    if (!walls[i][j])  // Only place candies in free cells
+                    if (i % 3 == 0 || j % 3 == 1)
                         candies[i][j] <= 1;
                     else
-                        candies[i][j] <= 0;  // No candies on walls
+                        candies[i][j] <= 0;
                 end
             end
 
@@ -82,25 +58,14 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-    /////////////////
-    // Catch logic //
-    /////////////////
-    always_ff @(posedge clk or posedge rst) begin
-        if (rst) begin
-            catch <= 0;
-        end else begin
-            catch <= catch || (ghost_x_reg == pacman_x_reg && ghost_y_reg == pacman_y_reg);
-        end
-    end
-
     //////////////////////////
     // Ghost movement logic //
     //////////////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            // Start Ghost at (WIDTH-2, HEIGHT-2)
-            ghost_x_reg <= WIDTH-2;
-            ghost_y_reg <= HEIGHT-2;
+            // Start Ghost at (WIDTH/2, HEIGHT/2)
+            ghost_x_reg <= WIDTH/2;
+            ghost_y_reg <= HEIGHT/2;
         end else begin
             ghost_x_reg <= ghost_x_next;
             ghost_y_reg <= ghost_y_next;
@@ -114,34 +79,45 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         pacman_x_next = pacman_x_reg;
         pacman_y_next = pacman_y_reg;
 
-        case (move)
-            2'b00: if (pacman_y_reg > 0 && !walls[pacman_x_reg][pacman_y_reg-1])
+        case (pacman_move)
+            2'b00: if (pacman_y_reg > 0)
                       pacman_y_next = pacman_y_reg - 1; // Move up
-            2'b01: if (pacman_y_reg < HEIGHT-1 && !walls[pacman_x_reg][pacman_y_reg+1])
+            2'b01: if (pacman_y_reg < HEIGHT-1)
                       pacman_y_next = pacman_y_reg + 1; // Move down
-            2'b10: if (pacman_x_reg > 0 && !walls[pacman_x_reg-1][pacman_y_reg])
+            2'b10: if (pacman_x_reg > 0)
                       pacman_x_next = pacman_x_reg - 1; // Move left
-            2'b11: if (pacman_x_reg < WIDTH-1 && !walls[pacman_x_reg+1][pacman_y_reg])
+            2'b11: if (pacman_x_reg < WIDTH-1)
                       pacman_x_next = pacman_x_reg + 1; // Move right
         endcase
     end
 
-    /////////////////////////////////
-    // Simple Ghost movement logic //
-    /////////////////////////////////
+    ///////////////////////////////////////
+    // Determine next position for ghost //
+    ///////////////////////////////////////
     always_comb begin
         ghost_x_next = ghost_x_reg;
         ghost_y_next = ghost_y_reg;
 
-        // Basic random movement logic: check for walls before moving
-        if (ghost_x_reg > 0 && !walls[ghost_x_reg-1][ghost_y_reg])
+        // Basic random movement logic
+        if (ghost_x_reg > pacman_x_reg)
             ghost_x_next = ghost_x_reg - 1; // Move left
-        else if (ghost_y_reg > 0 && !walls[ghost_x_reg][ghost_y_reg-1])
+        else if (ghost_y_reg > pacman_y_reg)
             ghost_y_next = ghost_y_reg - 1; // Move up
-        else if (ghost_x_reg < WIDTH-1 && !walls[ghost_x_reg+1][ghost_y_reg])
+        else if (ghost_x_reg < pacman_x_reg)
             ghost_x_next = ghost_x_reg + 1; // Move right
-        else if (ghost_y_reg < HEIGHT-1 && !walls[ghost_x_reg][ghost_y_reg+1])
+        else if (ghost_y_reg < pacman_y_reg)
             ghost_y_next = ghost_y_reg + 1; // Move down
+    end
+
+    /////////////////
+    // Catch logic //
+    /////////////////
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
+            catch <= 0;
+        end else begin
+            catch <= catch || (ghost_x_reg == pacman_x_reg && ghost_y_reg == pacman_y_reg);
+        end
     end
 
     ////////////////////////
@@ -155,8 +131,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     ///////////////////////////
     // Concurrent Properties //
     ///////////////////////////
-    property legal_position_prop;
-    @(posedge clk) (~walls[pacman_x][pacman_y]);
+    property candies_update_prop;
+    @(posedge clk) (candies[pacman_x][pacman_y] |=> ~candies[$past(pacman_x)][$past(pacman_y)]);
     endproperty
     property collected_all_candies_prop;
     @(posedge clk) ($countones(candies) == 0);
@@ -168,7 +144,7 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     /////////////////////////
     // Property Directives //
     /////////////////////////
-    legal_position:        assert property (legal_position_prop);
+    candies_update:        assert property (candies_update_prop);
     collected_all_candies: cover property  (collected_all_candies_prop);
     win:                   cover property  (win_prop);
 
