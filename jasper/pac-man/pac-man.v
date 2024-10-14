@@ -98,7 +98,7 @@ module pacman #(parameter WIDTH = 6, HEIGHT = 6) (
         ghost_x_next = ghost_x_reg;
         ghost_y_next = ghost_y_reg;
 
-        // Basic random movement logic
+        // Basic movement logic
         if (ghost_x_reg > pacman_x_reg)
             ghost_x_next = ghost_x_reg - 1; // Move left
         else if (ghost_y_reg > pacman_y_reg)
