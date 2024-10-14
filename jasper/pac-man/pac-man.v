@@ -9,7 +9,7 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     output logic [HEIGHT-1:0] ghost_y,  // Ghost Y position
     output logic [WIDTH-1:0][HEIGHT-1:0] walls,  // Wall positions (1 = wall, 0 = free)
     output logic [WIDTH-1:0][HEIGHT-1:0] candies, // Candy positions (1 = candy, 0 = empty)
-    output logic lost                   // Will be defined in the exercise
+    output logic catch                  // Indicator for the event that the ghost catches Pac-Man
 );
 
     // Pac-Man position registers
@@ -23,9 +23,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     // Wall and candy initialization logic
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
-            // Initialize walls: Surround the grid with walls and add some internal ones
+            // Initialize walls: Surround the grid with walls and add some internal walls.
             for (integer i = 0; i < WIDTH; i = i + 1) begin
-                for (integer j = 0; j < WIDTH; j = j + 1) begin
+                for (integer j = 0; j < HEIGHT; j = j + 1) begin
                     walls[i][j] <= 0;
                 end
             end
@@ -38,12 +38,13 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
                 walls[WIDTH-1][i] <= 1;   // Right column
             end
 
-            // Internal walls
+            // Internal walls.  Assumes HEIGHT >= 6, WIDTH >= 7. A compilation
+            // error will occur if these conditions aren't met.
             walls[2][2] <= 1;
             walls[3][3] <= 1;
             walls[4][4] <= 1;
             walls[5][5] <= 1;
-            walls[6][6] <= 1;
+            walls[5][6] <= 1;
 
             // Initialize candies (place candies at random locations)
             for (integer i = 0; i < WIDTH; i = i + 1) begin
@@ -64,7 +65,8 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     // Pac-Man movement logic
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
-            pacman_x_reg <= 1;  // Start Pac-Man at (1,1)
+            // Start Pac-Man at (1,1)
+            pacman_x_reg <= 1;
             pacman_y_reg <= 1;
         end else begin
             pacman_x_reg <= pacman_x_next;
@@ -72,10 +74,21 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-    // Ghost movement logic (simplified)
+    // Catch logic
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
-            ghost_x_reg <= WIDTH-2;  // Start Ghost at (WIDTH-2, HEIGHT-2)
+            catch <= 0;
+        end else begin
+            catch <= catch || (ghost_x_reg == pacman_x_reg && ghost_y_reg == pacman_y_reg);
+        end
+    end
+
+
+    // Ghost movement logic
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) begin
+            // Start Ghost at (WIDTH-2, HEIGHT-2)
+            ghost_x_reg <= WIDTH-2;
             ghost_y_reg <= HEIGHT-2;
         end else begin
             ghost_x_reg <= ghost_x_next;
