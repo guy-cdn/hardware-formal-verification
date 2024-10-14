@@ -1,7 +1,7 @@
 // A module describing a PacMan game
 module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     input  logic clk,                   // Clock signal
-    input  logic rst,                   // Reset signal
+    input  logic rst,                 // Reset signal
     input  logic [1:0] move,            // Move signal: 00=up, 01=down, 10=left, 11=right
     output logic [WIDTH-1:0] pacman_x,  // Pac-Man X position
     output logic [HEIGHT-1:0] pacman_y, // Pac-Man Y position
@@ -12,18 +12,24 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
     output logic catch                  // Indicator for the event that the ghost catches Pac-Man
 );
 
-    // Pac-Man position registers
+    ////////////////////////////////
+    // Pac-Man position registers //
+    ////////////////////////////////
     logic [WIDTH-1:0] pacman_x_reg, pacman_x_next;
     logic [HEIGHT-1:0] pacman_y_reg, pacman_y_next;
 
-    // Ghost position registers
+    //////////////////////////////
+    // Ghost position registers //
+    //////////////////////////////
     logic [WIDTH-1:0] ghost_x_reg, ghost_x_next;
     logic [HEIGHT-1:0] ghost_y_reg, ghost_y_next;
 
-    // Wall and candy initialization logic
+    /////////////////////////////////////////
+    // Wall and candy initialization logic //
+    /////////////////////////////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            // Initialize walls: Surround the grid with walls and add some internal walls.
+            // Initialize walls: Surround the grid with walls and add some internal ones
             for (integer i = 0; i < WIDTH; i = i + 1) begin
                 for (integer j = 0; j < HEIGHT; j = j + 1) begin
                     walls[i][j] <= 0;
@@ -62,7 +68,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-    // Pac-Man movement logic
+    ////////////////////////////
+    // Pac-Man movement logic //
+    ////////////////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
             // Start Pac-Man at (1,1)
@@ -74,7 +82,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-    // Catch logic
+    /////////////////
+    // Catch logic //
+    /////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
             catch <= 0;
@@ -83,8 +93,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-
-    // Ghost movement logic
+    //////////////////////////
+    // Ghost movement logic //
+    //////////////////////////
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
             // Start Ghost at (WIDTH-2, HEIGHT-2)
@@ -96,7 +107,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         end
     end
 
-    // Determine next position for Pac-Man
+    /////////////////////////////////////////
+    // Determine next position for Pac-Man //
+    /////////////////////////////////////////
     always_comb begin
         pacman_x_next = pacman_x_reg;
         pacman_y_next = pacman_y_reg;
@@ -113,7 +126,9 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
         endcase
     end
 
-    // Simple Ghost movement logic
+    /////////////////////////////////
+    // Simple Ghost movement logic //
+    /////////////////////////////////
     always_comb begin
         ghost_x_next = ghost_x_reg;
         ghost_y_next = ghost_y_reg;
@@ -129,10 +144,32 @@ module pacman #(parameter WIDTH = 8, HEIGHT = 8) (
             ghost_y_next = ghost_y_reg + 1; // Move down
     end
 
-    // Output assignments
+    ////////////////////////
+    // Output assignments //
+    ////////////////////////
     assign pacman_x = pacman_x_reg;
     assign pacman_y = pacman_y_reg;
     assign ghost_x = ghost_x_reg;
     assign ghost_y = ghost_y_reg;
+
+    ///////////////////////////
+    // Concurrent Properties //
+    ///////////////////////////
+    property legal_position_prop;
+    @(posedge clk) (~walls[pacman_x][pacman_y]);
+    endproperty
+    property collected_all_candies_prop;
+    @(posedge clk) ($countones(candies) == 0);
+    endproperty
+    property win_prop;
+    @(posedge clk) ($countones(candies) == 0 && !catch);
+    endproperty
+
+    /////////////////////////
+    // Property Directives //
+    /////////////////////////
+    legal_position:        assert property (legal_position_prop);
+    collected_all_candies: cover property  (collected_all_candies_prop);
+    win:                   cover property  (win_prop);
 
 endmodule
