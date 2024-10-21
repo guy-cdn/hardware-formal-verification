@@ -23,5 +23,9 @@
 - Home assignment.
 
 ## Lab 3
-- Practice sequences.
-- Practice cover and assume directives.
+- Demonstration of sequences, including:
+  - Overlapping sequences.
+  - Non-overlapping sequences.
+- Demonstration of cover properties.
+- Demonstration of assumes, including fairness.
+- Home assignment.
