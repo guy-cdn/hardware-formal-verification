@@ -1,15 +1,13 @@
-# Labs
+# Labs / Tirgulim
 
 ## Lab 1
-- Practice basic formal verification flow.
-- Practice running a formal tool.
+- Logistics.
+- Basic demonstration of a formal tool and a proof flow.
+- Introduction to lab.
 
 ## Lab 2
-- Practice writing simple SVA properties.
-- Practice proving simple SVA properties.
-- Practice debugging bugs found while proving SVA properties.
+- Practice simple SVA properties.
 
 ## Lab 3
-- Practice writing sequences.
-- Practice writing cover properties and assumes.
-
+- Practice sequences.
+- Practice cover and assume directives.

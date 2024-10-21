@@ -1,13 +1,16 @@
-# Exercises
+# Home Exercises
 
 ## Exercise 1
-- Logistics.
-- Basic demonstration of a formal tool and a proof flow.
-- Introduction to lab.
+- Practice basic formal verification flow.
+- Practice running a formal tool.
 
 ## Exercise 2
-- Practice simple SVA properties.
+- Practice writing simple SVA properties.
+- Practice proving simple SVA properties.
+- Practice debugging bugs found while proving SVA properties.
 
 ## Exercise 3
-- Practice sequences.
-- Practice cover and assume directives.
+- Practice writing sequences.
+- Practice writing cover properties and assumes.
+
+
