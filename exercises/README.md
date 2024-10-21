@@ -2,7 +2,7 @@
 
 ## Exercise 1
 - Logistics.
-- Obtain basic experience with the formal tool and a proof flow.
+- Basic demonstration of a formal tool and a proof flow.
 - Introduction to lab.
 
 ## Exercise 2
