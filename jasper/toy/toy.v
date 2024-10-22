@@ -13,38 +13,13 @@ always @(posedge clk) begin
   end
 end
 
-
-// Properties
-property reachable_010_prop;
-  @(posedge clk) (state == 3'b010);
-endproperty
-property reachable_111_prop;
-  @(posedge clk) (state == 3'b111);
-endproperty
-property reachable_110_prop;
-  @(posedge clk) (state == 3'b110);
-endproperty
-property onehot0_prop;
-  @(posedge clk) ($onehot0(state));
-endproperty
-property eventually_wrap_prop;
-  @(posedge clk) (s_eventually(state == 3'b000));
-endproperty
-property eventually_en_prop;
-  @(posedge clk) (1 |-> s_eventually(en));
-endproperty
-
 // Cover properties
-reachable_010:        cover property (reachable_010_prop);
-reachable_111:        cover property (reachable_111_prop);
+reachable_010:        cover property (@(posedge clk) state == 3'b010);
+reachable_111:        cover property (@(posedge clk) state == 3'b111);
 
 // Assert properties
-onehot0:              assert property (onehot0_prop);
-eventually_wrap:      assert property (eventually_wrap_prop);
-
-// Assume properties
-not_reachable_110:    assume property (not reachable_110_prop);
-eventually_en:        assume property (eventually_en_prop);
+onehot0:              assert property (@(posedge clk) $onehot0(state));
+eventually_wrap:      assert property (@(posedge clk) state[0] == 0);
 
 endmodule
 
