@@ -9,5 +9,6 @@ Q4: assert property (@(posedge clk) en |-> ok);
 Q5: assert property (@(posedge clk) en |=> ok);
 Q6: assert property (@(posedge clk) en |=> $past(ok));
 Q7: assert property (@(posedge clk) en |=> $stable(ok));
+Q8: assert property (@(posedge clk) en |=> s_eventually(ok));
 
 endmodule
