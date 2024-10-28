@@ -1,4 +1,4 @@
-analyze -sv09 toy_simple_immediate_assert.v
+analyze -sv09 toy.v
 elaborate
 reset ~rst
 clock clk
