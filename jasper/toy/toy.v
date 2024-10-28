@@ -22,4 +22,3 @@ onehot0:              assert property (@(posedge clk) $onehot0(state));
 eventually_wrap:      assert property (@(posedge clk) state[0] == 0);
 
 endmodule
-
