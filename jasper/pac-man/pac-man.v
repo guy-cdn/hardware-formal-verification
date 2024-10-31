@@ -132,7 +132,7 @@ module pacman #(parameter WIDTH = 6, HEIGHT = 6) (
     // Concurrent Properties //
     ///////////////////////////
     property candies_update_prop;
-    @(posedge clk) (candies[pacman_x][pacman_y] |=> ~candies[$past(pacman_x)][$past(pacman_y)]);
+    @(posedge clk) (1 ##1 $countones(candies) <= $past($countones(candies)));
     endproperty
     property collected_all_candies_prop;
     @(posedge clk) ($countones(candies) == 0);
