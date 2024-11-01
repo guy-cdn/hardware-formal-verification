@@ -9,7 +9,7 @@
   - Define clock.
   - Prove.
   - Debug.
-- Home assignment.
+- Home assignment review.
 
 ## Lab 2
 - Demonstration of immediate assertions.
