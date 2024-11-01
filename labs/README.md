@@ -20,12 +20,10 @@
   - Same and next cycle implications.
   - System functions.
   - Liveness.
-- Home assignment.
+- Home assignment review.
 
 ## Lab 3
-- Demonstration of sequences, including:
-  - Overlapping sequences.
-  - Non-overlapping sequences.
+- Demonstration of sequences.
 - Demonstration of cover properties.
 - Demonstration of assumes, including fairness.
-- Home assignment.
+- Home assignment review.
