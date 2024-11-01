@@ -19,7 +19,7 @@
   - Boolean expressions.
   - Same and next cycle implications.
   - System functions.
-  - Liveness (s_eventually).
+  - Liveness.
 - Home assignment.
 
 ## Lab 3
