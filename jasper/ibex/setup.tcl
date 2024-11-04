@@ -5,7 +5,7 @@ analyze -sv09 -f ibex_core.f \
     +define+IBEX_CFG_RegFile=ibex_pkg::RegFileFF
 
 # Elaborate design and properties
-elaborate -extract_covergroup -top ibex_core \
+elaborate -extract_covergroup -top ibex_top \
     -parameter ibex_core.RV32E 0 \
     -parameter ibex_core.BranchTargetALU 1 \
     -parameter ibex_core.WritebackStage 1 \

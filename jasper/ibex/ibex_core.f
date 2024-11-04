@@ -81,3 +81,4 @@
 ../../ibex/rtl/ibex_register_file_latch.sv
 ../../ibex/rtl/ibex_pmp.sv
 ../../ibex/rtl/ibex_core.sv
+../../ibex/rtl/ibex_top.sv
