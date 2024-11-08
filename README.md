@@ -15,4 +15,5 @@ git clone https://github.com/guy-cdn/hardware-formal-verification.git
 - jasper/ibex: setup files for the ibex design.
 - jasper/pac-man: pac-man module and setup file.
 - jasper/toy: a toy example and setup file.
-- exercises: course home assignments.
+- assignments: design and setup files used in home assignments.
+- labs: design and setup files used in labs.
