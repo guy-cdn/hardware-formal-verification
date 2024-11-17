@@ -5,7 +5,7 @@ module traffic_light (
     input wire rst,             // Reset signal
     input wire pedestrian_btn,  // Pedestrian request button
     output reg [1:0] car_light, // Car traffic light (3-bit: Red, Yellow, Green)
-    output reg pedestrian_light // Pedestrian traffic light (1-bit: Red/Green)
+    output reg [1:0] pedestrian_light // Pedestrian traffic light (1-bit: Red/Green)
 );
 
 // Define the states for car and pedestrian traffic light
