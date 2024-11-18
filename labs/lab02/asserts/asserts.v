@@ -1,6 +1,6 @@
-module toy(clk, ok, en, gnt, req, A, B);
+module toy(clk, rst, ok, en, gnt, req, A, B);
 
-input clk, ok, en, gnt, req, A, B;
+input clk, rst, ok, en, gnt, req, A, B;
 
 P1: assert property (@(posedge clk) ok);
 P2: assert property (@(posedge clk) en |-> ok);
