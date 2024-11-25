@@ -9,7 +9,6 @@
   - Define clock.
   - Prove.
   - Debug.
-- Home assignment review.
 
 ## Lab 2
 - Demonstration of immediate assertions.
@@ -20,10 +19,9 @@
   - Same and next cycle implications.
   - System functions.
   - Liveness.
-- Home assignment review.
 
 ## Lab 3
 - Demonstration of sequences.
 - Demonstration of cover properties.
 - Demonstration of assumes, including fairness.
-- Home assignment review.
+- Demonstration of disable iff.
