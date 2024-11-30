@@ -15,7 +15,7 @@ module controller_props(clk, rst, ctrl_fsm_cs);
   cov_dec_irq_taken: cover property (@(posedge clk) ctrl_fsm_cs == DECODE ##1 ctrl_fsm_cs == IRQ_TAKEN);
 
   // Completeness check: check that only the above transitions are legal
-  ast_legal_transitions: assert property (@(posedge clk) ctrl_fsm_cs == DECODE |=> 
+  ast_decode_legal_trns: assert property (@(posedge clk) ctrl_fsm_cs == DECODE |=> 
                                                              ctrl_fsm_cs == DECODE ||
                                                              ctrl_fsm_cs == IRQ_TAKEN ||
                                                              ctrl_fsm_cs == DBG_TAKEN_IF ||
