@@ -1,8 +1,5 @@
-# Analyze design files
-analyze -sv09 -f ibex_core.f \
-    +define+IBEX_CFG_RV32M=ibex_pkg::RV32MSingleCycle \
-    +define+IBEX_CFG_RV32B=ibex_pkg::RV32BOTEarlGrey \
-    +define+IBEX_CFG_RegFile=ibex_pkg::RegFileFF
+# Analyze design and property files
+analyze -sv09 -f ibex_core.f props.sv
 
 # Elaborate design and properties
 elaborate -extract_covergroup -top ibex_top \
@@ -20,6 +17,6 @@ elaborate -extract_covergroup -top ibex_top \
     -parameter ibex_core.MHPMCounterNum 10 \
     -parameter ibex_core.MHPMCounterWidth 32
 
-#Set up Clocks and Resets
+# Set up Clocks and Resets
 clock clk_i
 reset !rst_ni
