@@ -2,7 +2,7 @@
 analyze -sv09 -f ibex_core.f props.sv
 
 # Elaborate design and properties
-elaborate -extract_covergroup -top ibex_top \
+elaborate -top ibex_top \
     -parameter ibex_core.RV32E 0 \
     -parameter ibex_core.BranchTargetALU 1 \
     -parameter ibex_core.WritebackStage 1 \
