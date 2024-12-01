@@ -110,6 +110,40 @@ always @(*) begin
 end
 
 // For question #1, implement the concurret assertions in the space below:
+   // Assertion: Either the car light is red, or the pedestrian light is red (or both).
+    assert property (@(posedge clk) car_light == RED || pedestrian_light == RED);
+   // Assertion: Red car light can only change to green or remain red.
+    assert property (@(posedge clk) car_state == RED |-> (next_car_state == RED || next_car_state == GREEN));
+   // Assertion: Green car light can only change to yellow or remain green.
+    assert property (@(posedge clk) car_state == GREEN |-> (next_car_state == GREEN || next_car_state == YELLOW));
+   // Assertion: Yellow car light can only change to red or remain yellow.
+    assert property (@(posedge clk) car_state == YELLOW |-> (next_car_state == YELLOW || next_car_state == RED));
+   // Assertion: Car light is always red, green, or yellow.
+    assert property (@(posedge clk) car_light == RED || car_light == GREEN || car_light == YELLOW);
+   // Assertion: Pedestrian light is always red or green.
+     assert property (@(posedge clk) pedestrian_light == RED || pedestrian_light == GREEN);
+   // Assertion: If pedestrian light is green, car light is red.
+     assert property (@(posedge clk) pedestrian_light == GREEN |-> car_light == RED);
+   // Assertion: If car light is green, pedestrian light is red.
+     assert property (@(posedge clk) car_light == GREEN |-> pedestrian_light == RED);
+   // Assertion: If pedestrian light is green, car light in the previous cycle is red.
+     assert property (@(posedge clk) pedestrian_light == GREEN |-> $past(car_light) == RED);
+   // Assertion: If car light is green, pedestrian light in the previous cycle is red.
+     assert property (@(posedge clk) car_light == GREEN |-> $past(pedestrian_light) == RED);
+   // Assertion: Car light is never stuck at green, yellow, or red.
+     assert property (@(posedge clk) !$stable(car_light));
+   // Assertion: Pedestrian light is never stuck at green or red.
+     assert property (@(posedge clk) !$stable(pedestrian_light));
+         
+
+         
+            
+ 
+            
+
+
+
+
 
 
 endmodule
