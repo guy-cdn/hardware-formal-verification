@@ -18,7 +18,6 @@ module addi_prop(clk, rst, rvfi_valid, rvfi_insn, rvfi_rd_addr, rvfi_rd_wdata, r
               rvfi_insn[14:12] == 3'b000 |-> 
                 $signed(rvfi_rd_wdata) == $signed(rvfi_insn[31:20]) + $signed(rvfi_rs1_rdata));
 
-
 endmodule
 
 // Bind the above module to the ibex_core module.
