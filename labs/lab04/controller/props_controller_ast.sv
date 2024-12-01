@@ -1,4 +1,3 @@
-// Define instruction fetch properties here. 
 module controller_props(clk, rst, ctrl_fsm_cs);
    
   // Import definition of ctrl_fsm_e (state enums)
@@ -23,5 +22,5 @@ module controller_props(clk, rst, ctrl_fsm_cs);
 
 endmodule
 
-// Bind the above module to the ibex_if_stage module.
+// Bind the above module to the ibex_controller module.
 bind ibex_controller controller_props controller_props_i(clk_i, rst_ni, ctrl_fsm_cs);
