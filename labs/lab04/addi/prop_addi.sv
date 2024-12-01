@@ -12,9 +12,9 @@ module addi_prop(clk, rst, rvfi_valid, rvfi_insn, rvfi_rd_addr, rvfi_rd_wdata, r
   import ibex_pkg::*;
  
   ast_addi: assert property (@(posedge clk) 
-              rvfi_valid && 
-              rvfi_rd_addr != 5'b0 &&
-              rvfi_insn[6:0] == OPCODE_OP_IMM && 
+              rvfi_valid &&
+              rvfi_rd_addr != 5'b0 && // rd=x0 if NOP or HINT
+              rvfi_insn[6:0] == OPCODE_OP_IMM &&
               rvfi_insn[14:12] == 3'b000 |-> 
                 $signed(rvfi_rd_wdata) == $signed(rvfi_insn[31:20]) + $signed(rvfi_rs1_rdata));
 
