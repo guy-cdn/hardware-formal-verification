@@ -25,3 +25,6 @@
 - Demonstration of cover properties.
 - Demonstration of assumes, including fairness.
 - Demonstration of disable iff.
+
+## Lab 4
+- Demonstration of formal property verification of a RISC-V core.
