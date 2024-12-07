@@ -1,4 +1,4 @@
-analyze -sv09 toy.v
+analyze -sv12 toy.v
 elaborate
 reset ~rst
 clock clk
