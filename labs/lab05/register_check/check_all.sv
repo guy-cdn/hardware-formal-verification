@@ -41,7 +41,7 @@ module register_prop(clk, rst,
       end
   end
 
-  consistent: assert property (@(posedge clk) consistent);
+  consistent_x: assert property (@(posedge clk) consistent);
   stable_rindex: assume property (@(posedge clk) 1 ##1 $stable(rindex));
   positive_rindex: assume property (@(posedge clk) rindex != 5'd0);
 
