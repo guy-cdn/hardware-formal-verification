@@ -28,3 +28,8 @@
 
 ## Lab 4
 - Demonstration of formal property verification of a RISC-V core.
+
+## Lab 5
+- Demonstration of auxiliary code.
+- Demonstration of formal property verification of a RISC-V core.
+
