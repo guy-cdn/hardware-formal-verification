@@ -1,4 +1,4 @@
-// Define a register check property for register x[rindex]
+// Define a register check property for all registers
 module register_prop(clk, rst, 
                      rvfi_valid,
                      rvfi_rd_addr, 
