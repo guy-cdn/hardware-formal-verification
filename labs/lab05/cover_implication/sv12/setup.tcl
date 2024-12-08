@@ -1,4 +1,4 @@
 analyze -sv12 toy.v
-elaborate -lrm_cover_property
+elaborate
 reset ~rst
 clock clk
