@@ -27,16 +27,19 @@ module register_prop(clk, rst,
           // Initial values
           written <= 1'b0;
           consistent <= 1'b1;
-      end else if (rvfi_valid && rvfi_rd_addr == 5'd7) begin
-          // Data is written to x7
-          data <= rvfi_rd_wdata;
-          written <= 1'b1;
-      end else if (rvfi_valid && written && rvfi_rs1_addr == 5'd7) begin
-          // Data is read from x7
-          consistent <= data == rvfi_rs1_rdata;
-      end else if (rvfi_valid && written && rvfi_rs2_addr == 5'd7) begin
-          // Data is read from x7
-          consistent <= data == rvfi_rs2_rdata;
+      end else if (rvfi_valid) begin
+          if (rvfi_rd_addr == 5'd7) begin
+              // Data is written to x7, store written value in data
+              data <= rvfi_rd_wdata;
+              written <= 1'b1;
+          end
+          if (written && rvfi_rs1_addr == 5'd7) begin
+              // Data is read from x7, check consistency with stored data
+              consistent <= data == rvfi_rs1_rdata;
+          end else if (written && rvfi_rs2_addr == 5'd7) begin
+              // Data is read from x7, check consistency with stored data
+              consistent <= data == rvfi_rs2_rdata;
+          end
       end
   end
 
