@@ -14,11 +14,13 @@ module unique_prop(clk, rst, rvfi_valid, rvfi_order);
       if (!rst) begin 
           uniq <= 1'b1;
           saved <= 1'b0;
-      end else if (rvfi_valid && !saved && en) begin
-          saved_order <= rvfi_order;
-          saved <= 1'b1;
-      end else if (saved && rvfi_valid) begin
-          uniq <= rvfi_order != saved_order;
+      end else begin
+          if (rvfi_valid && !saved && en) begin
+              saved_order <= rvfi_order;
+              saved <= 1'b1;
+          end else if (rvfi_valid && saved) begin
+              uniq <= rvfi_order != saved_order;
+          end
       end
   end
 
