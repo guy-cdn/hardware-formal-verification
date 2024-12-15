@@ -20,6 +20,6 @@ clear -result
 
 # We can help the engine reach Trace Attempt 8 faster, but skipping the first 7 Trace Attempts
 # This proof will now find the cover trace for the property much faster
-set_first_trace_attempt 8
+set_engineB_first_trace_attempt 8
 prove -all -engine B -verbosity 11 -orch off
 
