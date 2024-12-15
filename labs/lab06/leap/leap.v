@@ -1,9 +1,7 @@
-module leap(clk, rst, en, x, y);
+module leap(clk, rst, en);
 
 input clk, rst;
 input reg[1:0] en;
-input reg[31:0] x;
-input reg[31:0] y;
 reg[127:0] state;
 
 always @(posedge clk) begin
