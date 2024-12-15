@@ -33,3 +33,10 @@
 - Demonstration of auxiliary code.
 - Demonstration of formal property verification of a RISC-V core.
 
+## Lab 6
+- Demonstration of BMC.
+  - Single-property BMC.
+  - Multi-property BMC.
+  - Elastic settings.
+  - Solvers.
+  - Leapfrog.
