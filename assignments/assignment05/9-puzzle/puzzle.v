@@ -53,6 +53,6 @@ wire solution = cells[0][0] == 1 &
                 cells[2][1] == 8 &
                 cells[2][2] == 0;
 
-cover: cover property (@(posedge clk) solution);
+c: cover property (@(posedge clk) solution);
 
 endmodule
