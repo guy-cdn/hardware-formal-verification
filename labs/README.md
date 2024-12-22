@@ -40,3 +40,11 @@
   - Elastic settings.
   - Solvers.
   - Leapfrog.
+
+## Lab 7
+- Demonstration of induction.
+  - 1-induction.
+  - k-induction.
+  - Elastic k-induction.
+  - Strengthening induction with helpers.
+  - Obtaining counterexamples to induction.
