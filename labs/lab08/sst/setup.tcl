@@ -3,8 +3,8 @@ elaborate
 clock clk
 reset rst
 
-# Generate a counterexample to k-induction, k=5
-prove -property counter.ast -sst 5
+# Generate a counterexample to k-induction, k=8
+prove -property counter.ast -sst 8
 
 # Visualize the counterexample
 visualize -violation -property <embedded>::counter.ast -new_window
