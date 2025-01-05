@@ -3,7 +3,7 @@ elaborate
 clock clk
 reset rst
 
-# Generate a counterexample to k-induction, k=8
+# Generate a counterexample to k-induction, k=7
 prove -property counter.ast -sst 8
 
 # Visualize the counterexample
