@@ -34,5 +34,4 @@ foreach instance $ibex_instances {
     }
 }
 
-# Make sure to copy props_if.sv to props.sv so that the property below is defined
 prove -prop {<embedded>::ibex_top.u_ibex_core.if_stage_i.if_props_i.req_until_gnt} -engine M -verbosity 8 -orch off
