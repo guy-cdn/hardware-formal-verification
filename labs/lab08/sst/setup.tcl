@@ -14,4 +14,4 @@ assert -name c1_eq_c2 {@(posedge clk) c1 == c2}
 prove -property c1_eq_c2
 
 # Prove the original assert with the help of the helper assert
-prove -property counter.ast -with_proven
+prove -property counter.ast -engine Hps -with_proven
