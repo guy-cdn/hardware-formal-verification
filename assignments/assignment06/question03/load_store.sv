@@ -12,7 +12,7 @@ module load_store_prop(clk, data_req_o, data_gnt_i, data_we_o);
   // NOTE: You need to replace <SVA expression> below with an actual SVA
   // expression that captures the specification given in the home assignment.
   // You should use the signals defined in this module in the SVA expression.
-  write_enable_stable: assert property (<SVA expression>);
+  write_enable_ok: assert property (<SVA expression>);
 
 endmodule
 
