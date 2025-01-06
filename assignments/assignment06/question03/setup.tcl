@@ -25,4 +25,4 @@ reset !rst_ni
 source proof_setup.tcle
 
 # The 'prop' variable is a Tcl variable that holds the name of the assert defined in load_store.sv
-set prop <embedded>::ibex_top.u_ibex_core.load_store_unit_i.ls_props_i.write_enable_ok 
+set prop <embedded>::ibex_top.u_ibex_core.load_store_unit_i.load_store_prop_i.write_enable_ok 
