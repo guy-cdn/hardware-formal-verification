@@ -4,4 +4,6 @@ reset ~rst
 clock clk
 
 set_prove_orchestration off
-set_engine_mode B
+
+# Note: A previous version of this Tcl file contained the following command, which is now commented out.
+# set_engine_mode B
