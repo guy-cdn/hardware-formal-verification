@@ -1,5 +1,5 @@
 # Analyze design and property files
-analyze -sv09 -f ibex_core.f props_controller.sv 
+analyze -sv09 -f ibex_core.f check.sv 
 
 # Elaborate design and properties
 elaborate -top ibex_top \
@@ -22,12 +22,7 @@ clock clk_i
 reset !rst_ni
 
 # Proof setup
-set_engine_mode B
 set_prove_orchestration off
-set_proofgrid_manager on
 
-# Prove 'safe'
-prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.safe -bg
-
-# Prove 'live'
-prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.live -bg
+# Prove the properties defined in check_split.sv
+prove -property {*consistent_x7*} -engine {N} -per_property_time_limit 0
