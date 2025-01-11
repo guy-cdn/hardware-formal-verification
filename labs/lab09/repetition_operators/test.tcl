@@ -25,9 +25,8 @@ reset !rst_ni
 set_engine_mode B
 set_prove_orchestration off
 
-# Prove 'live'
-prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.live
-
 # Prove 'safe'
+prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.safe -bg
 
-prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.safe
+# Prove 'live'
+prove -property <embedded>::ibex_top.u_ibex_core.id_stage_i.controller_i.controller_props_i.live -bg
