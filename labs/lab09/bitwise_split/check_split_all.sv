@@ -27,7 +27,7 @@ module register_prop(clk, rst,
       if (!rst) begin 
           // Initial values
           written <= 1'b0;
-          inconsistent <= 1'b0;
+          inconsistent <= 32'd0;
       end else if (rvfi_valid) begin
           if (rvfi_rd_addr == index) begin
               // Data is written to x_index, store written value in data
