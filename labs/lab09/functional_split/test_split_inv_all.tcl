@@ -1,5 +1,4 @@
 # Analyze design and property files
-#analyze -sv09 -f ibex_core.f x.sv 
 analyze -sv09 -f ibex_core.f check_split_all.sv 
 
 # Elaborate design and properties
