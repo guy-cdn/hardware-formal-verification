@@ -23,6 +23,7 @@ reset !rst_ni
 
 # Proof setup
 set_prove_orchestration off
+set_proofgrid_manager on
 
 # Prove the properties defined in check_split.sv
 # Caution!!! You need a strong enough machine to run this!!!

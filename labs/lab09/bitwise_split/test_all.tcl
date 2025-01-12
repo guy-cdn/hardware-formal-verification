@@ -24,6 +24,7 @@ reset !rst_ni
 # Proof setup
 set_prove_orchestration off
 set_prove_invariants_import on
+set_proofgrid_manager on
 
 # Prove the properties defined in check_split.sv
 prove -property {*consistent_x*} -engine {N AM AD M Mp}

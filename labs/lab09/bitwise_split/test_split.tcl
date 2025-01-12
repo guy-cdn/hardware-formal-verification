@@ -23,6 +23,7 @@ reset !rst_ni
 
 # Proof setup
 set_prove_orchestration off
+set_proofgrid_manager on
 
 # Prove the properties defined in check_split.sv
 prove -property {*consistent_x7*} -engine {N} -per_property_time_limit 0
