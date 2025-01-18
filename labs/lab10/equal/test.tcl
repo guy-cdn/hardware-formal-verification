@@ -21,4 +21,8 @@ check_sec -setup
 # Increase proof verbosity
 source verbose.tcle
 
+# Prove
+check_sec -prove
 
+# Signoff
+check_sec -signoff
