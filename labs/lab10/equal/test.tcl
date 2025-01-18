@@ -17,3 +17,8 @@ assume {@(posedge clk) en}
 
 # Construct miter and mappings
 check_sec -setup
+
+# Increase proof verbosity
+source verbose.tcle
+
+
