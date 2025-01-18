@@ -18,6 +18,19 @@ assume {@(posedge clk) en}
 # Construct miter and mappings
 check_sec -setup
 
+# Check interface
+check_sec -interface
+
+# Get the list of unmapped SPEC and IMP signals
+check_sec -interface -unmapped -spec
+check_sec -interface -unmapped -imp
+
+# Add missing input mappings
+check_sec -map -spec y -imp z
+
+# Check interface
+check_sec -interface
+
 # Increase proof verbosity
 source verbose.tcle
 
