@@ -48,3 +48,20 @@
   - Elastic k-induction.
   - Strengthening induction with helpers.
   - Obtaining counterexamples to induction.
+  
+## Lab 8
+- SST Proofs.
+- Abstraction Engines.
+- Manual Abstractions.
+
+## Lab 9
+- Proof complexity topics.
+
+## Lab 10
+- Sequential equivalence verification.
+  
+## Lab 11
+- Various topics.
+
+## Lab 12
+- Fun with formal.
